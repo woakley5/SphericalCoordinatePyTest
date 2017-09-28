@@ -10,18 +10,18 @@ class PlatformCalculator:
     def __init__(self):
         self.support_qty = 3;
         self.support_locations = []
-        for i in range(0, self.support_qty - 1):
+        for i in range(0, self.support_qty):
             x = CartesianVector()
             self.support_locations.append(x)
 
     def setSupportLocations(self, xyLocations):
-        for x in range(0, self.support_qty - 1):
+        for x in range(0, self.support_qty):
             self.support_locations[x].x = xyLocations[x][0]
             self.support_locations[x].y = xyLocations[x][1]
             self.support_locations[x].z = 0.0
 
     def solveZValues(self, cartesianNormal, zPos):
-        for x in range(0, self.support_qty - 1):
+        for x in range(0, self.support_qty):
             zPos[x] = -1 * ((cartesianNormal.x * self.support_locations[x].x) + (cartesianNormal.y * self.support_locations[x].y)) / cartesianNormal.z
 
     def sphericalToCartesian(self, radius, thetaDeg, phiDeg):
@@ -41,16 +41,16 @@ class PlatformCalculator:
 
 
 calc = PlatformCalculator()
-kDegreesToRadians = (3.1415926535 / 180.0);
-kXYLocations = [[0.0, 171.45], [-148.48, -85.725], [148.48, -85.725]]; #change these based on the coordinates of the mounts based on the center
+kDegreesToRadians = (3.1415926535 / 180.0); #constant
 zValues = [0.0, 0.0, 0.0] #default to 0.0
 
+kXYLocations = [[0.0, 171.45], [-148.48, -85.725], [148.48, -85.725]]; #change these based on the coordinates of the mounts based on the center
 calc.setSupportLocations(kXYLocations)
 
 theta = 30.0 #change theta and phi angles
 phi = 83.2
 
-calc.calculateSupportPositions(theta, phi, zValues) 
+calc.calculateSupportPositions(theta, phi, zValues)
 
 print(zValues[0])
 print(zValues[1])
